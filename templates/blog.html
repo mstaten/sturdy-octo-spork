@@ -8,8 +8,8 @@
 
     {% for post in posts %}
     <div>
-        <h3>{{post.title}}{{post_title}}</h3>
-        <p>{{post.body}}{{post_body}}</p>
+        <h3><a href="/blog?id={{post.id}}" type="text/html">{{post.title}}</h3></a>
+        <p>{{post.body}}</p>
     </div>
     <hr />
     {% endfor %}
