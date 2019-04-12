@@ -1,6 +1,7 @@
 from flask import Flask, request, redirect, render_template, session, flash
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
+from time_fix import rotate_hr, convert_hr, rotate_time, rotate_day
 
 app = Flask(__name__)
 app.config['DEBUG'] = True
@@ -14,26 +15,35 @@ class Blog(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(300))
     body = db.Column(db.Text)
-    pub_date = db.Column(db.DateTime)
+    date = db.Column(db.DateTime)
+    utc_date = db.Column(db.DateTime)
     
-    def __init__(self, title, body, pub_date=None):
+    def __init__(self, title, body, utc_date=None, date=None):
         self.title = title
         self.body = body
-        if pub_date is None:
-            pub_date = datetime.utcnow()
-        self.pub_date = pub_date
+        if utc_date is None:
+            utc_date = datetime.utcnow()
+        self.utc_date = utc_date
+        if date is None:
+            # change day maybe
+            day = rotate_day(utc_date)
+            # change time definitely
+            hr = utc_date.hour
+            hr = rotate_hr(hr)
+            hr = convert_hr(hr)
+        self.date = datetime(utc_date.year, utc_date.month, day, hr, utc_date.minute, utc_date.second)
 
     def __repr__(self):
         return '<Post %r>' % self.title
 
     def get_date(self):
         return '{0}.{1}.{2}'.format(
-                            str(self.pub_date.month), 
-                            str(self.pub_date.day), 
-                            str(self.pub_date.year))
+                            str(self.date.month), 
+                            str(self.date.day), 
+                            str(self.date.year))
     
     def get_time(self):
-        return '{0}:{1}'.format(self.pub_date.hour, self.pub_date.minute)
+        return rotate_time(self.utc_date)
 
 def is_valid(field):
     if field.strip() == '':
