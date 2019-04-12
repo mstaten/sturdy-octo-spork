@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1>Build-A-Blog</h1>
+<h2>Add a Blog Entry</h2>
+<form action="/newpost" method="POST">
+    <label for="post_title">
+        Title for your new blog:
+        <input type="text" name="post_title" id="post_title" value="{{post_title}}"/>
+    </label>
+    <label for="post_body">
+        Your new blog:
+        <textarea name="post_body" id="post_body" >{{post_body}}</textarea>
+    </label>
+    <input type="submit" value="Add Blog" />
+</form>
+
+<hr />
+
+
+
+{% endblock %}
