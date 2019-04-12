@@ -1,5 +1,6 @@
 from flask import Flask, request, redirect, render_template, session, flash
 from flask_sqlalchemy import SQLAlchemy
+from datetime import datetime
 
 app = Flask(__name__)
 app.config['DEBUG'] = True
@@ -12,11 +13,27 @@ app.secret_key = 'y33kolV00d00'
 class Blog(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(300))
-    body = db.Column(db.String(1000))
+    body = db.Column(db.Text)
+    pub_date = db.Column(db.DateTime)
     
-    def __init__(self, title, body):
+    def __init__(self, title, body, pub_date=None):
         self.title = title
         self.body = body
+        if pub_date is None:
+            pub_date = datetime.utcnow()
+        self.pub_date = pub_date
+
+    def __repr__(self):
+        return '<Post %r>' % self.title
+
+    def get_date(self):
+        return '{0}.{1}.{2}'.format(
+                            str(self.pub_date.month), 
+                            str(self.pub_date.day), 
+                            str(self.pub_date.year))
+    
+    def get_time(self):
+        return '{0}:{1}'.format(self.pub_date.hour, self.pub_date.minute)
 
 def is_valid(field):
     if field.strip() == '':
