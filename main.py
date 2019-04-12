@@ -84,6 +84,25 @@ def new_post():
     return render_template('newpost.html', title='Add a Blog Post')
 
 
+def sort(posts):
+
+    # will hold attr 'date' of post obj, of datetime objs
+    # in correct order by date
+    order_posts = [] 
+    for post in posts:
+        # sort by post.date
+        order_posts += [post.date]
+    order_posts = sorted(order_posts, reverse=True)
+    #order_posts.sort() 
+
+    # will return original list of posts in correct order by date
+    list_posts = []
+    for date in order_posts:
+        new = Blog.query.filter_by(date=date).first()
+        list_posts += [new]
+    return list_posts
+
+
 @app.route('/blog', methods=['POST', 'GET'])
 def index():
     if request.args.get('id'):
@@ -100,6 +119,7 @@ def index():
         db.session.commit()
 
     posts = Blog.query.all()
+    posts = sort(posts)
     return render_template('blog.html', title='Home', posts=posts)
 
 

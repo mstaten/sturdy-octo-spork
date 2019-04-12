@@ -5,10 +5,11 @@
 <h1>Build-A-Blog</h1>
 
 {% if posts|length != 0 %}
-
+    --> sort by date, time
     {% for post in posts %}
     <div>
         <h3><a href="/blog?id={{post.id}}" type="text/html">{{post.title}}</h3></a>
+        <p class="time">{{post.get_date()}}</p>
         <p>{{post.body}}</p>
     </div>
     <hr />
