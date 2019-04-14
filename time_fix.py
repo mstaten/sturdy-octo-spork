@@ -5,9 +5,6 @@ def rotate_hr(hour):
     
 
 def convert_hr(hour):
-    # case: hour btwn 0,12
-    # good!
-    # case: hour > 12
     if hour > 12:
         hour -= 12
     return hour
@@ -27,6 +24,8 @@ def rotate_day(pub_date):
 def rotate_time(pub_date):
     hr = pub_date.hour
     minute = pub_date.minute
+    if minute < 10:
+        minute = '0' + str(minute)
 
     rotated = rotate_hr(hr)
     converted = convert_hr(rotated)

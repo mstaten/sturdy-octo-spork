@@ -31,7 +31,8 @@ a {
     border-bottom: 2px solid #000;
     font-size: 12pt;
     font-style: italic;
-    margin: 2px 0;
+    margin:  0;
+    padding: 0 10px;
 }
 
 .site-nav li {
@@ -56,6 +57,8 @@ a {
 .page-header hr {
     width: 20%;
     opacity: 0.4;
+    padding-bottom: 0;
+    margin-bottom: 0;
 }
 
 main {
@@ -68,19 +71,21 @@ main {
     font-size: 12pt;
 }
 
-main h3 {
-    margin: 0;
-    padding: 0;
-}
-
-main .main-item{
+.main-item{
     min-width: 12%;
     max-width: 20%;
     padding: 30px;
-    margin: 40px;
+    margin: 10px 40px 40px 40px;
     border: 2px solid black;
     border-radius: 2px;
 }
+
+
+.main-item hr {
+    padding: 0;
+    margin: 20px 0;
+}
+
 
 main .title {
     padding: 0 0 5px 0;
@@ -102,4 +107,13 @@ main .one-item {
 
 .error {
     color: red;
+}
+
+.flash-msg {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.flash-msg li {
+    display: inline-block;
 }

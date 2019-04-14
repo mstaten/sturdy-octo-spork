@@ -14,7 +14,14 @@
                 <ul>
                     <li><a href="/blog">Main Blog Page</a></li>
                     <li><a href="/newpost">Add a Blog Entry</a></li>
-                    <li><a href="#">About Me</a></li>
+                    <li><a href="#">About Us</a></li>
+                    {% with messages = get_flashed_messages(with_categories=True) %}
+                        {% for category,message in messages %}
+                            {% if category=='log' %}
+                                <li class="{{category}}"><a href="/{{message}}">{{message}}</a></li>
+                            {% endif %}
+                        {% endfor %}
+                    {% endwith %}
                 </ul>
             </nav>
         </header>
@@ -25,10 +32,12 @@
         </header>
 
         {% with messages = get_flashed_messages(with_categories=True) %}
-            <ul>
-            {% for category,message in messages %}
-            <li class="{{category}}">{{message}}</li>
-            {% endfor %}
+            <ul class="flash-msg">
+                {% for category,message in messages %}
+                    {% if category != 'log' %}
+                        <li class="{{category}}">{{message}}</li>
+                    {% endif %}
+                {% endfor %}
             </ul>
         {% endwith %}
         <main>
