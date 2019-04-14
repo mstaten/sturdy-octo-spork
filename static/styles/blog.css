@@ -1,0 +1,20 @@
+/* styles.css for blog.html */
+
+
+span {
+    font-style: italic;
+    padding: 0 5px 0 0;
+    font-size: 10pt;
+}
+
+a {
+    display: block;
+}
+
+.page-header {
+    text-transform: uppercase;
+}
+
+.date, .time {
+    opacity: 0.5;
+}

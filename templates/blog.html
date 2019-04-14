@@ -2,22 +2,21 @@
 
 {% block content %}
 
-<h1>Build-A-Blog</h1>
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/blog.css')}}" />
+    
+    {% if posts|length != 0 %}
+        {% for post in posts %}
+        <div class="main-item">
+            <h3 class="title"><a href="/blog?id={{post.id}}" type="text/html">{{post.title}}</h3></a>
+            <span class="date">{{post.get_date()}}</span>
+            <span class="time">{{post.get_time()}}</span>
+            <hr />
+            <p>{{post.body}}</p>
+        </div>
+        {% endfor %}
 
-{% if posts|length != 0 %}
-    --> sort by date, time
-    {% for post in posts %}
-    <div>
-        <h3><a href="/blog?id={{post.id}}" type="text/html">{{post.title}}</h3></a>
-        <p class="time">{{post.get_date()}}</p>
-        <p>{{post.body}}</p>
-    </div>
-    <hr />
-    {% endfor %}
-
-{% else %}
-<p>No posts yet. Add one!</p>
-{% endif %}
-
+    {% else %}
+    <p>No posts yet. Add one!</p>
+    {% endif %}
 
 {% endblock %}

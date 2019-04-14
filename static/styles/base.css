@@ -1,0 +1,105 @@
+* {
+    font-family: 'Lato', sans-serif;
+}
+.grid {
+    display: grid;
+    position: relative;
+    margin: auto;
+    grid-template-areas:    "site-header"
+                            "page-header"
+                            "main";
+    grid-template-rows: 200px 100px 1fr;
+    grid-gap: 10px;
+    font-family: 'Lato', sans-serif;
+}
+
+a {
+    color: black;
+    text-decoration: none;
+}
+
+.site-header {
+    grid-area: site-header;
+    margin: 0;
+    padding:  0;
+    text-align: center;
+    letter-spacing: 0.02em;
+}
+
+.site-nav {
+    border-top: 0.7px solid #000;
+    border-bottom: 2px solid #000;
+    font-size: 12pt;
+    font-style: italic;
+    margin: 2px 0;
+}
+
+.site-nav li {
+    display: inline-block;
+    margin: 0 5px;
+    padding: 0 10px;
+    text-transform: uppercase;
+}
+
+.page-header {
+    grid-area: page-header;
+    position: relative;
+    font-size: 12pt;
+    letter-spacing: 0.08em;
+    color: #000;
+    opacity: 0.5;
+    text-align: center;
+    margin: 0;
+    padding:  0;
+}
+
+.page-header hr {
+    width: 20%;
+    opacity: 0.4;
+}
+
+main {
+    grid-area: main;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 0;
+    padding: 0 20px;
+    font-size: 12pt;
+}
+
+main h3 {
+    margin: 0;
+    padding: 0;
+}
+
+main .main-item{
+    min-width: 12%;
+    max-width: 20%;
+    padding: 30px;
+    margin: 40px;
+    border: 2px solid black;
+    border-radius: 2px;
+}
+
+main .title {
+    padding: 0 0 5px 0;
+    font-family: 'Lato', sans-serif;
+    font-weight: bold;
+}
+
+main .one-item {
+
+}
+
+.date {
+
+}
+
+.time {
+    
+}
+
+.error {
+    color: red;
+}

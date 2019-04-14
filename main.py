@@ -66,7 +66,7 @@ def new_post():
             flash('Title is blank', 'error')
         if title_err or body_err:
             posts = Blog.query.all()
-            return render_template('newpost.html', title='Add Blog Post',
+            return render_template('newpost.html', title='Add a Blog Post',
                                     post_title = post_title,
                                     post_body = post_body,
                                     posts = posts)
