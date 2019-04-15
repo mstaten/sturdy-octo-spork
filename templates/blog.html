@@ -6,7 +6,7 @@
     
     {% if posts|length != 0 %}
         {% for post in posts %}
-        <div class="main-item">
+        <div class="blog-item">
             <h3 class="title"><a href="/blog?id={{post.id}}" type="text/html">{{post.title}}</h3></a>
             <p class="name">by {{post.owner.email}}</p>
             <p class="date">{{post.get_date()}}</p>

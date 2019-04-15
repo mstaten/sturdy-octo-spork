@@ -1,19 +1,8 @@
 {% extends "base.html" %}
 
 {% block content %}
-<style>
-        h1      {font-family: Verdana, Geneva, Tahoma, sans-serif;}
-        table   {margin: 1em 1.5em;}
-        td      {padding: 2px;}
-        input   {font-family: monospace;
-                font-size: 14pt;
-                padding: 5px;
-                font-style: italic;}
-        .button {font-family: monospace; 
-                font-size: 14pt;
-                margin: 10px;}
-        .center {text-align: center;}
-</style>
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/register.css')}}" />
+
 <form action="/register" method='POST'>
 
     <table>

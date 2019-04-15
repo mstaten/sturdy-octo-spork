@@ -33,6 +33,7 @@ a {
     font-style: italic;
     margin:  0;
     padding: 0 10px;
+    word-spacing: 0.09em;
 }
 
 .site-nav li {
@@ -71,7 +72,7 @@ main {
     font-size: 12pt;
 }
 
-.main-item{
+.blog-item{
     min-width: 12%;
     max-width: 20%;
     padding: 30px;
@@ -81,9 +82,17 @@ main {
 }
 
 
-.main-item hr {
+.blog-item hr {
     padding: 0;
     margin: 20px 0;
+}
+
+
+.button input {
+    font-size: 14pt;
+    margin: 10px;
+    padding: 5px;
+    font-style: italic;
 }
 
 
@@ -93,16 +102,56 @@ main .title {
     font-weight: bold;
 }
 
-main .one-item {
-
+.upper {
+    text-transform: uppercase;
 }
 
-.date {
-
-}
-
-.time {
+.one-item {
     
+}
+
+.new-post {
+    display: block;
+    text-align: center;
+}
+
+.title-label, .body-label {
+    display: block;
+    text-align: center;
+    margin: 10px;
+}
+
+label {
+    display: block;
+    text-align: center;
+}
+
+.post-title {
+    width: 400px;
+    height: 20px;
+    margin: 10px 10px 20px 10px;
+}
+
+.post-body {
+    width: 400px;
+    height: 200px;
+    margin: 10px;
+}
+
+p {
+    padding: 0 5px 0 0;
+    margin: 5px 0;
+    font-size: 12pt;
+    display: inline-block;
+}
+
+.title {
+    padding: 0;
+    margin: 0 0 10px 0;
+}
+
+.name, .date, .time {
+    font-style: italic;
 }
 
 .error {

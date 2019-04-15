@@ -2,19 +2,18 @@
 
 {% block content %}
 
-    <form action="/newpost" method="POST">
-        <label for="post_title">
-            Title for your new blog:
-            <input type="text" name="post_title" id="post_title" value="{{post_title}}"/>
+    <form action="/newpost" method="POST" class="new-post">
+        <label for="post_title" >
+            <span class="title-label" >Title:</span>
+            <input type="text" name="post_title" id="post_title" value="{{post_title}}" class="post-title"/>
         </label>
         <label for="post_body">
-            Your new blog:
-            <textarea name="post_body" id="post_body" >{{post_body}}</textarea>
+            <span class="body-label">Your new post:</span>
+            <textarea name="post_body" id="post_body" class="post-body">{{post_body}}</textarea>
         </label>
-        <input type="submit" value="Add Blog" />
+        <span class="button" ><input type="submit" value="Add Blog" /></span>
     </form>
 
-    <hr />
 
 
 {% endblock %}
