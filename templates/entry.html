@@ -5,10 +5,13 @@
 
 <div id="wrapper">
     <div class="one-item">
-        <p class="date">{{post.get_date()}}</p>
-        <p class="time">{{post.get_time()}}</p>
-        <hr />
         <p class="body">{{post.body}}</p>
+        <hr />
+        <p class="date">{{post.get_date()}} / </p>
+        <p class="time">{{post.get_time()}}</p>
+        <a href="/blog?user={{post.owner.id}}" type="text/html">
+            <p class="user"> / {{post.owner.username}}</p>
+        </a>
     </div>
 </div>
 {% endblock %}
