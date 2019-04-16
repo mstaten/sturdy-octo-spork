@@ -27,18 +27,19 @@
         </header>
 
         <header class="page-header">
-            <h1>{{title}}</h1>
-            <hr />
+            <h1><span>{{title}}</span></h1>
         </header>
 
         {% with messages = get_flashed_messages(with_categories=True) %}
-            <ul class="flash-msg">
-                {% for category,message in messages %}
-                    {% if category != 'log' %}
-                        <li class="{{category}}">{{message}}</li>
-                    {% endif %}
-                {% endfor %}
-            </ul>
+            <div id="wrapper">
+                <ul class="flash-msg">
+                    {% for category,message in messages %}
+                        {% if category != 'log' %}
+                            <li class="{{category}}">{{ message }}</li>
+                        {% endif %}
+                    {% endfor %}
+                </ul>
+            </div>
         {% endwith %}
         <main>
         {% block content %}
