@@ -47,6 +47,7 @@ a {
     grid-area: page-header;
     position: relative;
     font-size: 12pt;
+    word-spacing: 0.1em;
     letter-spacing: 0.08em;
     color: #000;
     opacity: 0.5;
@@ -74,7 +75,52 @@ main {
     font-size: 12pt;
 }
 
-.blog-item{
+
+
+p {
+    padding: 0;
+    margin: 5px 0;
+    display: inline-block;
+}
+
+
+
+.descriptors {
+    text-align: center;
+    font-style: italic;
+    font-size: 12pt;
+    opacity: 0.5;
+}
+
+
+
+.login, .register {
+    text-align: center;
+}
+.login table, .register table {
+    margin: 1em 1.5em;
+}
+.login td, .register td {
+    padding: 2px;
+}
+.login input, .register input {
+    font-family: monospace;
+    font-size: 14pt;
+    padding: 5px;
+    font-style: italic;
+}
+.login .button, .register .button {
+    font-family: monospace; 
+    font-size: 14pt;
+    margin: 10px;
+}
+.login .span, .register .span {
+    display: block;
+    text-align: center;
+}
+
+
+.blog-item {
     min-width: 12%;
     max-width: 20%;
     padding: 30px;
@@ -82,19 +128,25 @@ main {
     border: 2px solid black;
     border-radius: 2px;
 }
-
-
+.blog-item p {
+    padding: 0 5px 0 0;
+    margin: 5px 0;
+    font-size: 10pt;
+    display: inline-block;
+}
+.blog-item .body {
+    font-size: 14pt;
+    padding: 10px 0 0 0;
+    word-spacing: 0.1em;
+    line-height: 1.5;
+}
+.blog-item .title {
+    padding: 0;
+    margin: 0 0 10px 0;
+}
 .blog-item hr {
     padding: 0;
-    margin: 20px 0;
-}
-
-
-.button input {
-    font-size: 14pt;
-    margin: 10px;
-    padding: 5px;
-    font-style: italic;
+    margin: 0;
 }
 
 
@@ -104,26 +156,14 @@ main .title {
     font-weight: bold;
 }
 
-.upper {
-    text-transform: uppercase;
+.single-entry .title {
+    font-size: 18pt;
 }
-
-.one-item {
-    text-align: center;
-
-}
-
-.one-item .body {
+.single-entry .body {
     font-size: 20pt;
-}
-
-.one-item .date {
-    font-size: 12pt;
-}
-
-.one-item .time {
-    font-size: 12pt;
-    opacity: 0.5;
+    word-spacing: 0.1em;
+    line-height: 1.5;
+    padding: 16px 0 0 0; 
 }
 
 .new-post {
@@ -154,20 +194,10 @@ label {
     margin: 10px;
 }
 
-p {
-    padding: 0 0 0 0;
-    margin: 5px 0;
-    font-size: 12pt;
-    display: inline-block;
-}
 
 .title {
     padding: 0;
     margin: 0 0 10px 0;
-}
-
-.name, .date, .time {
-    font-style: italic;
 }
 
 .error {
@@ -175,7 +205,7 @@ p {
 }
 
 #wrapper {
-    width: 80%;
+    width: 60%;
     margin-right: auto;
     margin-left: auto;
 }

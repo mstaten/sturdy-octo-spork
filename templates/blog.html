@@ -1,18 +1,18 @@
 {% extends "base.html" %}
 
 {% block content %}
-
-<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/blog.css')}}" />
     
     {% if posts|length != 0 %}
         {% for post in posts %}
         <div class="blog-item">
             <h3 class="title"><a href="/blog?id={{post.id}}" type="text/html">{{post.title}}</h3></a>
-            <p class="owner"><a href="/blog?user={{post.owner.id}}" type="text/html">{{post.owner.username}}</a></p>
-            <p class="date">{{post.get_date()}}</p>
-            <p class="time">{{post.get_time()}}</p>
             <hr />
-            <p>{{post.body}}</p>
+            <span class="descriptors">
+                <p class="owner"><a href="/blog?user={{post.owner.id}}" type="text/html">{{post.owner.username}} / </a></p>
+                <p class="date">{{post.get_date()}} / </p>
+                <p class="time">{{post.get_time()}}</p>
+            </span>
+            <p class="body">{{post.body}}</p>
         </div>
         {% endfor %}
 

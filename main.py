@@ -79,26 +79,23 @@ def require_logout():
 
 
 def log_status():
-    if 'username' in session: # is logged in, need option to logout
-        return 'logout'
-        #flash('logout','log')
-    else:   # is logged out, need option to login
-        return 'login'
-        #flash('login','log')
+    if 'username' in session:   # if username in session --> user is logged in
+        return 'logout'         # need option to logout
+    else:                       # is logged out, therefore
+        return 'login'          # need option to login
 
 
 @app.route('/login', methods=['POST', 'GET'])
 def login():
-    if request.method == 'POST': # sb trying to log in
+    if request.method == 'POST': # user trying to log in
         username = request.form['username']
         password = request.form['password']
         user = User.query.filter_by(username=username).first() # retrieve from database
-        if user and user.password == password: # log them in
-            session['username'] = username
+        if user and user.password == password:  # log them in
+            session['username'] = username      # remember user
             flash('Logged in', 'success')
             return redirect('/newpost')
-        else: # why did login fail?
-            # enter categories through flash fn!! for user's next request
+        else:   # why did login fail?
             if not user:
                 flash('This username does not exist', 'error')
             elif user.password != password:
@@ -109,9 +106,9 @@ def login():
 
 def is_valid(field):
     if len(field) < 3 or len(field) > 20:
-        return 'Invalid length'
+        return 'Invalid length for ' # calling function inserts the approp. field
     elif ' ' in field:
-        return 'No whitespace allowed in {0}'.format(field)
+        return 'No whitespace allowed in '
     else:
         return ''
         
@@ -148,15 +145,16 @@ def register():
         username_error = is_valid(username)
         password_error = is_valid(password)
         if username_error:
-            flash(username_error, 'error')
+            flash(username_error + 'username', 'error')
             username = ''
         if password_error:
-            flash(password_error, 'error')
+            flash(password_error + 'password', 'error')
         elif not password_error: #if password ok, check verify-password
             verify_error = do_passwords_match(password, verify)
             if verify_error:
                 flash(verify_error, 'error')
         if username_error or password_error or verify_error:
+            flash('login','log')
             return render_template('register.html',
                                     title='Register',
                                     username=username,
@@ -261,7 +259,7 @@ def list_blogs():
         post_id = request.args.get('id')
         post = Blog.query.filter_by(id=post_id).first()
         post_title = post.title # unnecesary?
-        return render_template('entry.html', title=post_title, post=post)
+        return render_template('entry.html', title='a blog', post=post)
 
     # click on username from home page, 
     # display only blogs by one user
