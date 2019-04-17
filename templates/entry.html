@@ -3,13 +3,15 @@
 {% block content %}
 <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/entry.css')}}" />
 
-<div id="wrapper">
+<div class="wrapper">
     <div class="single-entry">
         <h3 class="title"><a href="/blog?id={{post.id}}" type="text/html">{{post.title}}</h3></a>
         <hr />
         <span class="descriptors">
-            <p class="owner"><a href="/blog?user={{post.owner.id}}" type="text/html">{{post.owner.username}} / </a></p>
-            <p class="date">{{post.get_date()}} / </p>
+            <p class="owner"><a href="/blog?user={{post.owner.id}}" type="text/html">{{post.owner.username}}</a></p>
+            <p>/</p>
+            <p class="date">{{post.get_date()}}</p>
+            <p>/</p>
             <p class="time">{{post.get_time()}}</p>
         </span>
         <p class="body">{{post.body}}</p>

@@ -32,7 +32,7 @@
         </header>
 
         {% with messages = get_flashed_messages(with_categories=True) %}
-            <div id="wrapper">
+            <div class="wrapper">
                 <ul class="flash-msg">
                     {% for category,message in messages %}
                         {% if category != 'log' %}

@@ -84,12 +84,34 @@ p {
 }
 
 
+.all-users {
+
+}
+#users {
+    text-align: center;
+    display: block;
+    justify-content: center;
+    border: 0;
+}
+
+#users a {
+    font-size: 24pt;
+    color: mediumblue;
+    line-height: 1.5;
+    padding: 20px;
+    margin: 5px;
+
+}
+
 
 .descriptors {
-    text-align: center;
     font-style: italic;
     font-size: 12pt;
     opacity: 0.5;
+}
+.descriptors p {
+    margin: 0 2px;
+    padding: 0 2px;
 }
 
 
@@ -109,7 +131,7 @@ p {
     padding: 5px;
     font-style: italic;
 }
-.login .button, .register .button {
+.button {
     font-family: monospace; 
     font-size: 14pt;
     margin: 10px;
@@ -121,7 +143,7 @@ p {
 
 
 .blog-item {
-    min-width: 12%;
+    min-width: 250px;
     max-width: 20%;
     padding: 30px;
     margin: 10px 40px 40px 40px;
@@ -143,6 +165,7 @@ p {
 .blog-item .title {
     padding: 0;
     margin: 0 0 10px 0;
+    word-spacing: 0.1em;
 }
 .blog-item hr {
     padding: 0;
@@ -158,6 +181,7 @@ main .title {
 
 .single-entry .title {
     font-size: 18pt;
+    word-spacing: 0.1em;
 }
 .single-entry .body {
     font-size: 20pt;
@@ -169,6 +193,7 @@ main .title {
 .new-post {
     display: block;
     text-align: center;
+    font-size: 18pt;
 }
 
 .title-label, .body-label {
@@ -186,12 +211,14 @@ label {
     width: 400px;
     height: 20px;
     margin: 10px 10px 20px 10px;
+    font-size: 16pt;
 }
 
 .post-body {
     width: 400px;
     height: 200px;
     margin: 10px;
+    font-size: 16pt;
 }
 
 
@@ -204,17 +231,28 @@ label {
     color: red; 
 }
 
-#wrapper {
+.wrapper {
     width: 60%;
     margin-right: auto;
     margin-left: auto;
+    display: block;
+    justify-content: center;
 }
 
-.flash-msg {
+.wrapper .flash-msg {
+    display: block;
+    justify-content: center;
     text-align: center;
+
+}
+
+.wrapper span {
+    display: block;
 }
 
 li {
     display: block;
+    text-align: center;
+
 }
 
