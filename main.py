@@ -27,9 +27,9 @@ class Blog(db.Model):
             utc_date = datetime.utcnow()
         self.utc_date = utc_date
         if date is None:
-            # change day maybe
+            # might need to change day 
             day = rotate_day(utc_date)
-            # change time definitely
+            # change time 
             hr = utc_date.hour
             hr = rotate_hr(hr)
             hr = convert_hr(hr)
@@ -59,23 +59,11 @@ class User(db.Model):
         self.password = password
 
 
-"""
-# doesn't work
 @app.before_request
 def require_login():
-    #allowed_routes = ['login','register','blog']
     allowed_routes = ['login','list_blogs','index','register']
-    #not_allowed_routes = ['newpost']
     if request.endpoint not in allowed_routes and 'username' not in session:
         return redirect('/login')
-
-@app.before_request
-def require_logout():
-    allowed_routes = ['blog','entry','newpost','logout'] #?? / ??
-    not_allowed_routes = ['login','register']
-    if request.endpoint in not_allowed_routes and 'username' in session:
-        return redirect('/')
-"""
 
 
 def log_status():
@@ -141,7 +129,6 @@ def register():
         password = request.form['password']
         verify = request.form['verify_password']
 
-        # TODO validate data
         username_error = is_valid(username)
         password_error = is_valid(password)
         if username_error:
@@ -214,9 +201,6 @@ def new_post():
                                     
         # success - neither field is empty
         elif not title_err and not body_err:
-            #if log_status() == 'login': # an username IS NOT in the session
-            #    owner = User.query.filter_by(id=1).first()
-            
             owner = User.query.filter_by(username=session['username']).first()
             new = Blog(post_title, post_body, owner)
             db.session.add(new)
@@ -232,7 +216,6 @@ def new_post():
 
 
 def sort(posts):
-
     # will hold attr 'date' of post obj, of datetime objs
     # in correct order by date
     order_posts = [] 
@@ -258,7 +241,6 @@ def list_blogs():
     if request.args.get('id'):
         post_id = request.args.get('id')
         post = Blog.query.filter_by(id=post_id).first()
-        post_title = post.title # unnecesary?
         return render_template('entry.html', title='a blog', post=post)
 
     # click on username from home page, 
@@ -267,16 +249,8 @@ def list_blogs():
         user_id = request.args.get('user')
         user = User.query.filter_by(id=user_id).first()
         posts = Blog.query.filter_by(owner_id=user_id).all()
+        posts = sort(posts)
         return render_template('blog.html', title='Blogs by {0}'.format(user.username), posts=posts)
-
-    # unnecessary?
-    if request.method == 'POST':
-        post_title = request.form['post_title']
-        post_body = request.form['post_body']
-        owner = User.query.filter_by(username=session['username']).first()
-        a_new_post = Blog(post_title, post_body, owner)
-        db.session.add(a_new_post)
-        db.session.commit()
 
     posts = Blog.query.all()
     posts = sort(posts)
