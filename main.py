@@ -2,6 +2,7 @@ from flask import Flask, request, redirect, render_template, session, flash
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 from time_fix import rotate_hr, convert_hr, rotate_time, rotate_day
+from hashutils import make_pw_hash, make_salt, check_pw_hash
 
 app = Flask(__name__)
 app.config['DEBUG'] = True
@@ -51,19 +52,12 @@ class Blog(db.Model):
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(120))
-    password = db.Column(db.String(120))
+    pw_hash = db.Column(db.String(120))
     posts = db.relationship('Blog', backref='owner')
 
     def __init__(self, username, password):
         self.username = username
-        self.password = password
-
-
-@app.before_request
-def require_login():
-    allowed_routes = ['login','list_blogs','index','register']
-    if request.endpoint not in allowed_routes and 'username' not in session:
-        return redirect('/login')
+        self.pw_hash = make_pw_hash(password)
 
 
 def log_status():
@@ -79,7 +73,7 @@ def login():
         username = request.form['username']
         password = request.form['password']
         user = User.query.filter_by(username=username).first() # retrieve from database
-        if user and user.password == password:  # log them in
+        if user and check_pw_hash(password, user.pw_hash):  # log them in
             session['username'] = username      # remember user
             flash('Logged in', 'success')
             return redirect('/newpost')
@@ -255,6 +249,13 @@ def list_blogs():
     posts = Blog.query.all()
     posts = sort(posts)
     return render_template('blog.html', title='All Blogs', posts=posts)
+
+
+@app.before_request
+def require_login():
+    allowed_routes = ['login', 'register', 'index', 'list_blogs', 'static']
+    if not request.endpoint in allowed_routes and not 'username' in session:
+        return redirect('/login')
 
 
 @app.route('/')
