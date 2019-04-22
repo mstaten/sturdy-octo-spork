@@ -142,6 +142,11 @@ p {
 }
 
 
+.all-posts {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
 .blog-item {
     min-width: 250px;
     max-width: 20%;
@@ -171,6 +176,61 @@ p {
     padding: 0;
     margin: 0;
 }
+.pagination-ul {
+    padding: 0;
+    margin: 0;
+    border: none;
+    font-size: 16pt;
+    display: flex;
+    justify-content: space-evenly;
+    justify-items: center;
+    align-content: center;
+}
+.pagination-li {
+    width: 10px;
+    height: 40px;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    position: relative;
+    color: #757575;
+    font-family: fantasy;
+}
+.pg-current {
+    padding-left:15px;
+    padding-right: 1px;
+}
+.pg-slash {
+    padding-left: 0px;
+}
+.pg-total {
+    padding-right: 7px;
+    padding-left: 3px;
+}
+.chevron::before {
+	border-style: solid;
+	border-width: 0.1em 0.05em 0 0;
+	content: '';
+	display: inline-block;
+	height: 0.6em;
+	position: relative;
+	top: 0em;
+	transform: rotate(-45deg);
+	vertical-align: center;
+    width: 0.6em;
+    color: #5c5c5f;
+}
+.chevron.left:before {
+	left: 0.25em;
+	transform: rotate(-135deg);
+}
+.chevron.right:before {
+	left: 0;
+	transform: rotate(45deg);
+}
+.chevron.left.light:before, .chevron.right.light:before {
+    color: #ccc;
+}
 
 
 main .title {
@@ -195,25 +255,21 @@ main .title {
     text-align: center;
     font-size: 18pt;
 }
-
 .title-label, .body-label {
     display: block;
     text-align: center;
     margin: 10px;
 }
-
 label {
     display: block;
     text-align: center;
 }
-
 .post-title {
     width: 400px;
     height: 20px;
     margin: 10px 10px 20px 10px;
     font-size: 16pt;
 }
-
 .post-body {
     width: 400px;
     height: 200px;
@@ -255,4 +311,3 @@ li {
     text-align: center;
 
 }
-

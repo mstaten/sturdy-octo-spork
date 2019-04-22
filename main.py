@@ -1,15 +1,18 @@
-from flask import Flask, request, redirect, render_template, session, flash
+from flask import Flask, request, redirect, render_template, session, flash, url_for
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 from time_fix import rotate_hr, convert_hr, rotate_time, rotate_day
 from hashutils import make_pw_hash, make_salt, check_pw_hash
+from config import Config
 
 app = Flask(__name__)
-app.config['DEBUG'] = True
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://blogz:sGvjgunWZs2FYae@localhost:3306/blogz'
-app.config['SQLALCHEMY_ECHO'] = True
+app.config.from_object(Config)
+
+#app.config['DEBUG'] = True
+#app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://blogz:sGvjgunWZs2FYae@localhost:3306/blogz'
+#app.config['SQLALCHEMY_ECHO'] = True
 db = SQLAlchemy(app)
-app.secret_key = 'y33kolV00d00'
+#app.secret_key = 'y33kolV00d00'
 
 
 class Blog(db.Model):
@@ -209,27 +212,10 @@ def new_post():
     return render_template('newpost.html', title='Add a Blog Post')
 
 
-def sort(posts):
-    # will hold attr 'date' of post obj, of datetime objs
-    # in correct order by date
-    order_posts = [] 
-    for post in posts:
-        # sort by post.date
-        order_posts += [post.date]
-    order_posts = sorted(order_posts, reverse=True)
-    #order_posts.sort() 
-
-    # will return original list of posts in correct order by date
-    list_posts = []
-    for date in order_posts:
-        new = Blog.query.filter_by(date=date).first()
-        list_posts += [new]
-    return list_posts
-
-
-@app.route('/blog', methods=['POST', 'GET'])
+@app.route('/blog', methods=['GET'])
 def list_blogs():
     flash(log_status(),'log')
+    page = request.args.get('page',1,type=int)
 
     # click on single entry
     if request.args.get('id'):
@@ -242,13 +228,27 @@ def list_blogs():
     if request.args.get('user'):
         user_id = request.args.get('user')
         user = User.query.filter_by(id=user_id).first()
-        posts = Blog.query.filter_by(owner_id=user_id).all()
-        posts = sort(posts)
-        return render_template('blog.html', title='Blogs by {0}'.format(user.username), posts=posts)
+        posts = Blog.query.filter_by(owner_id=user_id).order_by(Blog.date.desc()).paginate(page, app.config['POSTS_PER_PAGE'], False)
+        # next two vbls will be set to URL returnd by url_for()
+        # only if there's a page in that direction; 
+        # otherwise the has_next / has_prev of the Pagination
+        # object will be False, and link will be None
+        next_url = url_for('list_blogs', page=posts.next_num) \
+            if posts.has_next else None
+        prev_url = url_for('list_blogs', page=posts.prev_num) \
+            if posts.has_prev else None
+        return render_template('blog.html', title='Blogs by {0}'.format(user.username), 
+                            posts=posts, next_url=next_url, 
+                            prev_url=prev_url)
 
-    posts = Blog.query.all()
-    posts = sort(posts)
-    return render_template('blog.html', title='All Blogs', posts=posts)
+    posts = Blog.query.order_by(Blog.date.desc()).paginate(page, app.config['POSTS_PER_PAGE'], False)
+    next_url = url_for('list_blogs', page=posts.next_num) \
+            if posts.has_next else None
+    prev_url = url_for('list_blogs', page=posts.prev_num) \
+            if posts.has_prev else None
+    return render_template('blog.html', title='All Blogs', 
+                            posts=posts, next_url=next_url, 
+                            prev_url=prev_url)
 
 
 @app.before_request

@@ -1,9 +1,33 @@
 {% extends "base.html" %}
 
 {% block content %}
+    <ul class="pagination-ul top">
+        <li class="pagination-li">
+            {% if prev_url %}
+            <a href="{{ prev_url }}">
+                <span class="chevron left"></span>
+            </a>
+            {% else %}
+            <span class="chevron left light"></span>
+            {% endif %}
+        </li>
+        <li class="pagination-li pg-current">{{ posts.page }}</li>
+        <li class="pagination-li pg-slash">/</li>
+        <li class="pagination-li pg-total">{{ posts.pages }}</li>
+        <li class="pagination-li">
+            {% if next_url %}
+            <a href="{{ next_url }}">
+                <span class="chevron right"></span>
+            </a>
+            {% else %}
+            <span class="chevron right light"></span>
+            {% endif %}
+        </li>
+    </ul>
     
-    {% if posts|length != 0 %}
-        {% for post in posts %}
+    <div class="all-posts">
+    {% if posts.total != 0 %}
+        {% for post in posts.items %}
         <div class="blog-item">
             <h3 class="title"><a href="/blog?id={{post.id}}" type="text/html">{{post.title}}</h3></a>
             <hr />
@@ -17,9 +41,33 @@
             <p class="body">{{post.body}}</p>
         </div>
         {% endfor %}
-
     {% else %}
     <p>No posts yet. Add one!</p>
     {% endif %}
+    </div>
+
+    <ul class="pagination-ul btm">
+        <li class="pagination-li">
+            {% if prev_url %}
+            <a href="{{ prev_url }}">
+                <span class="chevron left"></span>
+            </a>
+            {% else %}
+            <span class="chevron left light"></span>
+            {% endif %}
+        </li>
+        <li class="pagination-li pg-current">{{ posts.page }}</li>
+        <li class="pagination-li pg-slash">/</li>
+        <li class="pagination-li pg-total">{{ posts.pages }}</li>
+        <li class="pagination-li">
+            {% if next_url %}
+            <a href="{{ next_url }}">
+                <span class="chevron right"></span>
+            </a>
+            {% else %}
+            <span class="chevron right light"></span>
+            {% endif %}
+        </li>
+    </ul>
 
 {% endblock %}
