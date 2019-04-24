@@ -8,12 +8,7 @@ from config import Config
 app = Flask(__name__)
 app.config.from_object(Config)
 
-#app.config['DEBUG'] = True
-#app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://blogz:sGvjgunWZs2FYae@localhost:3306/blogz'
-#app.config['SQLALCHEMY_ECHO'] = True
 db = SQLAlchemy(app)
-#app.secret_key = 'y33kolV00d00'
-
 
 class Blog(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -253,7 +248,7 @@ def list_blogs():
 
 @app.before_request
 def require_login():
-    allowed_routes = ['login', 'register', 'index', 'list_blogs', 'static']
+    allowed_routes = ['login', 'register', 'index', 'list_blogs', 'static', 'sossin']
     if not request.endpoint in allowed_routes and not 'username' in session:
         return redirect('/login')
 
@@ -264,6 +259,9 @@ def index():
     users = User.query.all()
     return render_template('index.html', title='Home', users=users)
 
+@app.route('/sos')
+def sossin():
+    return render_template('sos.html', title='SOS')
 
 
 if __name__ == "__main__":

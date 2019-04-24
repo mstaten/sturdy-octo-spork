@@ -6,7 +6,8 @@ import os
 class Config(object):
     SECRET_KEY = os.environ.get('SECRET_KEY') or 'you-will-never-guess'
     DEBUG = True
-    SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://blogz:sGvjgunWZs2FYae@localhost:3306/blogz'
+    SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://sturdy-octo-spork:cu3dKNFTXPF3wnH@localhost:3306/sturdy-octo-spork'
+
     SQLALCHEMY_ECHO = True
     POSTS_PER_PAGE = 6
     
